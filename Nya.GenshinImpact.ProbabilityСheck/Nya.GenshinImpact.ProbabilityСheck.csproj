@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>icon_bPV_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="6481390.jpeg" />
+    <None Remove="icon.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="6481390.jpeg" />
+    <Resource Include="icon.jpeg" />
+  </ItemGroup>
+
+</Project>
