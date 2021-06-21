@@ -15,7 +15,7 @@ namespace Nya.GenshinImpact.ProbabilityСheck.Services
 
         public override void Play(Func<Win?> action)
         {
-            while (availableAttempts-- > 0 && LastWin[Win.FiveStart] >= stopBeforeGuarant) 
+            while (availableAttempts-- > 0 && LastWin[Win.FiveStart] <= stopBeforeGuarant) 
                 action();
         }
     }

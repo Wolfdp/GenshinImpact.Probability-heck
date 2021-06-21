@@ -54,7 +54,7 @@ namespace Nya.GenshinImpact.ProbabilityСheck.Services
                 .Concat(CreateBaseUsers(options.StopAfterGuarantUserOptions, (availableAttempts, preset) => new StopAfterGuarantUser(availableAttempts, preset)))
                 .Concat(CreateBaseUsers(options.StopAfterGuarantWithLargePresetUserOptions, (availableAttempts, preset) => new StopAfterGuarantUser(availableAttempts, preset)))
                 .Concat(CreateBaseUsers(options.StopAfterGuarantUserOptions, (availableAttempts, preset) => new StopAfterGuarantWithoutLimitUser(preset)))
-                .Concat(CreateStopBeforeGuarantUsers(options.StopBeforeGuarantUserOptions));
+                .Concat(CreateStopBeforeGuarantUsers(options.Guarants.Single(g => g.Win == Win.FiveStart).Count, options.StopBeforeGuarantUserOptions));
         }
 
         private IEnumerable<BaseUser> CreateBaseUsers(BaseUserOptions options, Func<int, int?, BaseUser>creator)
@@ -71,7 +71,7 @@ namespace Nya.GenshinImpact.ProbabilityСheck.Services
             return users;
         }
 
-        private IEnumerable<BaseUser> CreateStopBeforeGuarantUsers(StopBeforeGuarantUserOptions options)
+        private IEnumerable<BaseUser> CreateStopBeforeGuarantUsers(int gurant, StopBeforeGuarantUserOptions options)
         {
             var users = new BaseUser[options.Count];
             for (var i = 0; i < options.Count; i++)
@@ -80,7 +80,7 @@ namespace Nya.GenshinImpact.ProbabilityСheck.Services
                 var preset = options.PresetMin.HasValue && options.PresetMax.HasValue
                     ? _random.Next(options.PresetMin.Value, options.PresetMax.Value + 1)
                     : default(int?);
-                users[i] = new StopBeforeGuarantUser(availableAttempts, _random.Next(options.StopIndexMin, options.StopIndexMax + 1), preset);
+                users[i] = new StopBeforeGuarantUser(availableAttempts, gurant - _random.Next(options.StopIndexMin, options.StopIndexMax + 1), preset);
             }
             return users;
         }
